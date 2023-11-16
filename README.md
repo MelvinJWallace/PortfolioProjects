@@ -205,6 +205,44 @@ This is a python project that I completed on **Student Performance**. The purpos
 
 
 
+# Healthcare Project
+
+## Introduction
+
+This is a personal project that I completed on a **Healthcare** dataset utilizing the power of python. The purpose of this project was to demonstrate my understanding and knowledge of the data analysis process and to provide insights from the data. I achieved that by manipulating the data, transforming the data, processing the data, and then rpoviding visualizations the data.
+
+**_Disclaimer_**: _This dataset is completly made up of fictional characters. The dataset was retrieved from the Kaggle website and is open source_. 
+
+## Problem Statements
+1. What is the average age of male and female patients?
+2. What is the count of blood types by gender?
+3. What is the count of medical conditions?
+4. What is the count of medical conditions by gender?
+5. How many patients are there per insurance provider?
+6. How many patients are there per insurance provider by gender?
+7. How many patients are there per admissioin type?
+8. How many patients are there by gender per admission type?
+9. How many patients are there per test results?
+10. How many patients are there by gender per test results?
+11. What is the number of patients per medication?
+12. How many patients are there by admission year/month/day?
+13. What is the minimum/average/maximum billing amounts by gender?
+14. What are the minimum/average/maximum billing amounts by medical condition?
+15. What are the minimum/average/maximum billing amounts by insurance provider?
+16. What are the billing amounts by admission type?
+17. What are the billing amounts by medication and gender?
+18. What are the average billing amounts by admission year/month/day?
+
+## Skills Demonstrated
+- Importing libraries
+- Retrieving/Reading data to dataframe
+- Data manipulation
+- Data cleaning
+- Data processing
+- Exploratory data analysis
+- Data visualization
+
+
 
 
 
