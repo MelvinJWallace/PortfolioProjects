@@ -200,9 +200,9 @@ RECOMMENDED ANALYSIS:
 -- Churners vs Non-Churners by Max/Min/Avg Credit Scores --
 select  max(CreditScore) "Max credit score",
         min(CreditScore) "Min credit score", 
-		avg(CreditScore) "Avg credit score", 
-		Exited, 
-		count(Exited) "Number of customers who churned",
+	avg(CreditScore) "Avg credit score", 
+	Exited, 
+	count(Exited) "Number of customers who churned",
 		case 
 			when Exited = 0 then 'No'
 			when Exited = 1 then 'Yes'
@@ -222,13 +222,13 @@ Customers who churn have a lower minimum and average credit score in comparison 
 -- Percentage of Churners vs Non-Churners by Max/Min/Avg Credit Scores --
 with percent_of_churn_by_credit_scores as (select max(CreditScore) "Max credit score",
                                                   min(CreditScore) "Min credit score", 
-		                                          avg(CreditScore) "Avg credit score", 
-		                                          Exited, 
-		                                          count(Exited) "Number of customers who churned",
-		                                          case 
-													when Exited = 0 then 'No'
+		                                  avg(CreditScore) "Avg credit score", 
+		                                  Exited, 
+		                                  count(Exited) "Number of customers who churned",
+		                                  	case 
+								when Exited = 0 then 'No'
 			                                        when Exited = 1 then 'Yes'
-		                                          end as "Churned"
+		                                        end as "Churned"
                                            from Bank_Churn
                                            group by Exited)
 select *, cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
@@ -247,11 +247,11 @@ The max/min/avg credit scores of all customers who churned is 20.3%.
 -- Churners vs Non-Churners by Geography --
 select Geography, 
        Exited, 
-	   count(Exited) "Number of customers who churned",
+	count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
-		end as "Churned"
+	   	when Exited = 0 then 'No'
+		when Exited = 1 then 'Yes'
+	   end as "Churned"
 from Bank_Churn
 group by Geography,
          Exited
@@ -270,17 +270,17 @@ Spain                                              0      2064                  
 -- In France --
 with churn_by_geo as (select Geography, 
                              Exited, 
-	                         count(Exited) "Number of customers who churned",
+	                     count(Exited) "Number of customers who churned",
 	                           case 
-								when Exited = 0 then 'No'
-						        when Exited = 1 then 'Yes'
-		                       end as "Churned"
+					when Exited = 0 then 'No'
+					when Exited = 1 then 'Yes'
+		                   end as "Churned"
                       from Bank_Churn
                       group by Geography,
                       Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_geo
-											                       where Geography = 'France') * 100 "Percentage of churners from France"
+								   where Geography = 'France') * 100 "Percentage of churners from France"
 from churn_by_geo
 where Geography = 'France'
 and Churned = 'Yes'
@@ -297,17 +297,17 @@ The percentage of customers who churned in France is slightly above 16.15%.
 -- In Germany --
 with churn_by_geo as (select Geography, 
                              Exited, 
-	                         count(Exited) "Number of customers who churned",
+	                     count(Exited) "Number of customers who churned",
 	                           case 
-								when Exited = 0 then 'No'
-						        when Exited = 1 then 'Yes'
-		                       end as "Churned"
+					when Exited = 0 then 'No'
+					when Exited = 1 then 'Yes'
+		                   end as "Churned"
                       from Bank_Churn
                       group by Geography,
                       Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_geo
-											                       where Geography = 'Germany') * 100 "Percentage of churners from Germany"
+								   where Geography = 'Germany') * 100 "Percentage of churners from Germany"
 from churn_by_geo
 where Geography = 'Germany'
 and Churned = 'Yes'
@@ -324,17 +324,17 @@ The percentage of customers who churned in Germany is around 32.44%.
 -- In Spain --
 with churn_by_geo as (select Geography, 
                              Exited, 
-	                         count(Exited) "Number of customers who churned",
+	                     count(Exited) "Number of customers who churned",
 	                           case 
-								when Exited = 0 then 'No'
-						        when Exited = 1 then 'Yes'
-		                       end as "Churned"
+					when Exited = 0 then 'No'
+					when Exited = 1 then 'Yes'
+		                   end as "Churned"
                       from Bank_Churn
                       group by Geography,
                       Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_geo
-											                       where Geography = 'Spain') * 100 "Percentage of churners from Spain"
+								   where Geography = 'Spain') * 100 "Percentage of churners from Spain"
 from churn_by_geo
 where Geography = 'Spain'
 and Churned = 'Yes'
@@ -351,11 +351,11 @@ The percentage of customers who churned in Spain is 16.67%.
 -- Churn vs Non-Churn by Gender --
 select Gender, 
        Exited, 
-	   count(Exited) "Number of customers who churned",
+       count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
-		end as "Churned"
+		when Exited = 0 then 'No'
+		when Exited = 1 then 'Yes'
+	   end as "Churned"
 from Bank_Churn
 group by Gender, 
          Exited
@@ -371,17 +371,17 @@ Male                                               1      898                   
 -- Percentage of Female Churners vs Non-Churners --
 with percentage_of_female_churners as (select Gender, 
                                               Exited, 
-	                                          count(Exited) "Number of customers who churned",
-										       case 
-											     when Exited = 0 then 'No'
-			                                     when Exited = 1 then 'Yes'
-		                                       end as "Churned"
+	                                      count(Exited) "Number of customers who churned",
+						case 
+						  when Exited = 0 then 'No'
+			                          when Exited = 1 then 'Yes'
+		                                end as "Churned"
                                        from Bank_Churn
                                        group by Gender, 
                                                 Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from percentage_of_female_churners
-																   where Gender = 'Female') * 100 "Percentage of Females who churned"
+								   where Gender = 'Female') * 100 "Percentage of Females who churned"
 from percentage_of_female_churners
 where Gender = 'Female'
 and Churned = 'Yes';
@@ -397,17 +397,17 @@ Percentage of Females who churned
 -- Percentage of Male Churners vs Non-Churners --
 with percentage_of_male_churners as (select Gender, 
                                             Exited, 
-	                                        count(Exited) "Number of customers who churned",
-										     case 
-											   when Exited = 0 then 'No'
-			                                   when Exited = 1 then 'Yes'
-		                                     end as "Churned"
+	                                    count(Exited) "Number of customers who churned",
+						case 
+						   when Exited = 0 then 'No'
+			                           when Exited = 1 then 'Yes'
+		                                end as "Churned"
                                      from Bank_Churn
                                      group by Gender, 
                                               Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from percentage_of_male_churners
-																   where Gender = 'Male') * 100 "Percentage of Males who churned"
+								   where Gender = 'Male') * 100 "Percentage of Males who churned"
 from percentage_of_male_churners
 where Gender = 'Male'
 and Churned = 'Yes';
@@ -423,13 +423,13 @@ Percentage of Males who churned
 -- Churn vs Non-Churn by Age --
 select max(Age) "Max age",
        min(Age) "Min age", 
-	   avg(Age) "Avg age", 
-	   Exited, 
-	   count(Exited) "Number of customers who churned",
+       avg(Age) "Avg age", 
+       Exited, 
+       count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
-		end as "Churned"
+	   	when Exited = 0 then 'No'
+		when Exited = 1 then 'Yes'
+	   end as "Churned"
 from Bank_Churn
 group by Exited;
 /*
@@ -441,12 +441,12 @@ Max age Min age Avg age     Exited Number of customers who churned Churned
 -- Churn vs Non-Churn by Tenure --
 select max(Tenure) "Max years",
        min(Tenure) "Min years",
-	   avg(Tenure) "Avg years",
-	   Exited,
-	   count(Exited) "Number of customers who churned",
+       avg(Tenure) "Avg years",
+       Exited,
+       count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
+	   	when Exited = 0 then 'No'
+		when Exited = 1 then 'Yes'
 	   end as "Churned"
 from Bank_Churn
 group by Exited;
@@ -459,13 +459,13 @@ Max years Min years Avg years   Exited Number of customers who churned Churned
 -- Churn vs Non-Churn by Balance --
 select round(max(Balance), 2) "Max balance",
        round(min(Balance), 2) "Min balance",
-	   round(avg(Balance), 2) "Avg balance",
-	   Exited,
-	   count(Exited) "Number of customers who churned",
+       round(avg(Balance), 2) "Avg balance",
+       Exited,
+       count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
-		end as "Churned"
+		when Exited = 0 then 'No'
+		when Exited = 1 then 'Yes'
+	   end as "Churned"
 from Bank_Churn
 group by Exited;
 /*
@@ -480,12 +480,12 @@ Customers who churn have a higher max balance at $250,898.09 amd a higher averag
 */
 -- Churn vs Non-Churn by NumOfProducts --
 select NumOfProducts, 
-	   Exited, 
-	   count(Exited) "Number of customers who churned",
+       Exited, 
+       count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No' 
-			when Exited = 1 then 'Yes'
-		end as "Churned"
+	     when Exited = 0 then 'No' 
+	     when Exited = 1 then 'Yes'
+	   end as "Churned"
 from Bank_Churn
 group by NumOfProducts,
          Exited
@@ -504,18 +504,18 @@ NumOfProducts Exited Number of customers who churned Churned
 -- Percentage of Churn vs Non-Churn by NumOfProducts --
 -- Percentage of customers who churned with 1 Product --
 with churn_by_num_of_products as (select NumOfProducts, 
-	                                     Exited, 
-	                                     count(Exited) "Number of customers who churned",
-											case 
-												when Exited = 0 then 'No' 
-			                                    when Exited = 1 then 'Yes'
-		                                    end as "Churned"
+	                                 Exited, 
+	                                 count(Exited) "Number of customers who churned",
+					    case 
+						when Exited = 0 then 'No' 
+			                        when Exited = 1 then 'Yes'
+		                            end as "Churned"
                                   from Bank_Churn
                                   group by NumOfProducts,
                                            Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_num_of_products
-																   where NumOfProducts = 1) * 100 "Percentage of customers who churned with 1 product"
+								   where NumOfProducts = 1) * 100 "Percentage of customers who churned with 1 product"
 from churn_by_num_of_products
 where Churned = 'Yes' 
 and NumOfProducts = 1;
@@ -526,18 +526,18 @@ Percentage of customers who churned with 1 product
 */
 -- Percentage of customers who churned with 2 Product --
 with churn_by_num_of_products as (select NumOfProducts, 
-	                                     Exited, 
-	                                     count(Exited) "Number of customers who churned",
-											case 
-												when Exited = 0 then 'No' 
-			                                    when Exited = 1 then 'Yes'
-		                                    end as "Churned"
+	                                 Exited, 
+	                                 count(Exited) "Number of customers who churned",
+					    case 
+						when Exited = 0 then 'No' 
+			                        when Exited = 1 then 'Yes'
+		                            end as "Churned"
                                   from Bank_Churn
                                   group by NumOfProducts,
                                            Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_num_of_products
-																   where NumOfProducts = 2) * 100 "Percentage of customers who churned with 2 product"
+								   where NumOfProducts = 2) * 100 "Percentage of customers who churned with 2 product"
 from churn_by_num_of_products
 where Churned = 'Yes' 
 and NumOfProducts = 2;
@@ -548,18 +548,18 @@ Percentage of customers who churned with 2 product
 */
 -- Percentage of customers who churned with 3 Product --
 with churn_by_num_of_products as (select NumOfProducts, 
-	                                     Exited, 
-	                                     count(Exited) "Number of customers who churned",
-											case 
-												when Exited = 0 then 'No' 
-			                                    when Exited = 1 then 'Yes'
-		                                    end as "Churned"
+	                                 Exited, 
+	                                 count(Exited) "Number of customers who churned",
+						case 
+						   when Exited = 0 then 'No' 
+			                           when Exited = 1 then 'Yes'
+		                                end as "Churned"
                                   from Bank_Churn
                                   group by NumOfProducts,
                                            Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_num_of_products
-																   where NumOfProducts = 3) * 100 "Percentage of customers who churned with 3 product"
+								   where NumOfProducts = 3) * 100 "Percentage of customers who churned with 3 product"
 from churn_by_num_of_products
 where Churned = 'Yes' 
 and NumOfProducts = 3;
@@ -571,15 +571,15 @@ Percentage of customers who churned with 3 product
 -- Churn vs Non-Churn by HasCrCard --
 select HasCrCard, 
        Exited,
-	   count(Exited) "Number of customers who churned",
+       count(Exited) "Number of customers who churned",
 	   case
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
-		end as "Churned",
-		case 
-			when HasCrCard = 0 then 'No'
-			when HasCrCard = 1 then 'Yes'
-		end as "Credit Card"
+		when Exited = 0 then 'No'
+		when Exited = 1 then 'Yes'
+	   end as "Churned",
+	   case 
+		when HasCrCard = 0 then 'No'
+		when HasCrCard = 1 then 'Yes'
+	   end as "Credit Card"
 from Bank_Churn
 group by HasCrCard,
          Exited;
@@ -594,21 +594,21 @@ HasCrCard Exited Number of customers who churned Churned Credit Card
 -- Percentage of Churn vs Non-Churn by HasCrCard --
 with credit_card_churn as (select HasCrCard, 
                            Exited,
-	                       count(Exited) "Number of customers who churned",
-								case
-									when Exited = 0 then 'No'
-			                        when Exited = 1 then 'Yes'
-		                        end as "Churned",
-		                        case 
-			                        when HasCrCard = 0 then 'No'
-			                        when HasCrCard = 1 then 'Yes'
-		                        end as "Credit Card"
+	                   count(Exited) "Number of customers who churned",
+				case
+				   when Exited = 0 then 'No'
+			           when Exited = 1 then 'Yes'
+		                end as "Churned",
+		                case 
+			           when HasCrCard = 0 then 'No'
+			           when HasCrCard = 1 then 'Yes'
+		                end as "Credit Card"
                            from Bank_Churn
                            group by HasCrCard,
                                     Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from credit_card_churn
-																   where [Credit Card] = 'Yes') * 100 "Percentage of customers who churned with credit card"
+								   where [Credit Card] = 'Yes') * 100 "Percentage of customers who churned with credit card"
 from credit_card_churn
 where Churned = 'Yes'
 and [Credit Card] = 'Yes';
@@ -623,21 +623,21 @@ Percentage of customers who churned with credit card
 */
 with credit_card_churn as (select HasCrCard, 
                            Exited,
-	                       count(Exited) "Number of customers who churned",
-								case
-									when Exited = 0 then 'No'
-			                        when Exited = 1 then 'Yes'
-		                        end as "Churned",
-		                        case 
-			                        when HasCrCard = 0 then 'No'
-			                        when HasCrCard = 1 then 'Yes'
-		                        end as "Credit Card"
+	                   count(Exited) "Number of customers who churned",
+				case
+				   when Exited = 0 then 'No'
+			           when Exited = 1 then 'Yes'
+		                end as "Churned",
+		                case 
+			           when HasCrCard = 0 then 'No'
+			           when HasCrCard = 1 then 'Yes'
+		                end as "Credit Card"
                            from Bank_Churn
                            group by HasCrCard,
                                     Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from credit_card_churn
-																   where [Credit Card] = 'No') * 100 "Percentage of customers who churned with out credit card"
+								   where [Credit Card] = 'No') * 100 "Percentage of customers who churned with out credit card"
 from credit_card_churn
 where Churned = 'Yes'
 and [Credit Card] = 'No';
@@ -653,15 +653,15 @@ Percentage of customers who churned with out credit card
 -- Churn vs Non-Churn by IsActiveMember --
 select IsActiveMember,
        Exited ,
-	   count(Exited) "Number of customers who churned",
+       count(Exited) "Number of customers who churned",
 	   case 
-			when Exited = 0 then 'No'
-			when Exited = 1 then 'Yes'
-		end as "Churned",
-		case
-			when IsActiveMember = 0 then 'No'
-			when IsActiveMember = 1 then 'Yes'
-		end as "Active Member"
+	      when Exited = 0 then 'No'
+	      when Exited = 1 then 'Yes'
+	   end as "Churned",
+	   case
+	      when IsActiveMember = 0 then 'No'
+	      when IsActiveMember = 1 then 'Yes'
+	   end as "Active Member"
 from Bank_Churn
 group by IsActiveMember,
          Exited;
@@ -675,22 +675,22 @@ IsActiveMember Exited Number of customers who churned Churned Active Member
 */
 -- Percentage of Churn vs Non-Churn by IsActiveMember --
 with churn_by_active_member as (select IsActiveMember,
-                                Exited ,
-	                            count(Exited) "Number of customers who churned",
-									case 
-										when Exited = 0 then 'No'
-			                            when Exited = 1 then 'Yes'
-		                            end as "Churned",
-		                            case
-										when IsActiveMember = 0 then 'No'
-			                            when IsActiveMember = 1 then 'Yes'
-		                            end as "Active Member"
+                                       Exited ,
+	                               count(Exited) "Number of customers who churned",
+					 case 
+					    when Exited = 0 then 'No'
+			                    when Exited = 1 then 'Yes'
+		                         end as "Churned",
+		                         case
+					    when IsActiveMember = 0 then 'No'
+			                    when IsActiveMember = 1 then 'Yes'
+		                         end as "Active Member"
                                 from Bank_Churn
                                 group by IsActiveMember,
-                                Exited)
+                                         Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_active_member
-																   where [Active Member] = 'Yes') * 100 "Percentage of active members who churned"
+								   where [Active Member] = 'Yes') * 100 "Percentage of active members who churned"
 from churn_by_active_member
 where [Active Member] = 'Yes'
 and Churned = 'Yes';
@@ -704,22 +704,22 @@ The percentage of customers that are active members that churned is 14.26%.
 ---------------------------------------------------------------------------
 */
 with churn_by_active_member as (select IsActiveMember,
-                                Exited ,
-	                            count(Exited) "Number of customers who churned",
-									case 
-										when Exited = 0 then 'No'
-			                            when Exited = 1 then 'Yes'
-		                            end as "Churned",
-		                            case
-										when IsActiveMember = 0 then 'No'
-			                            when IsActiveMember = 1 then 'Yes'
-		                            end as "Active Member"
+                                       Exited ,
+	                               count(Exited) "Number of customers who churned",
+				       	  case 
+					  	when Exited = 0 then 'No'
+			                        when Exited = 1 then 'Yes'
+		                          end as "Churned",
+		                          case
+						when IsActiveMember = 0 then 'No'
+			                        when IsActiveMember = 1 then 'Yes'
+		                          end as "Active Member"
                                 from Bank_Churn
                                 group by IsActiveMember,
-                                Exited)
+                                         Exited)
 select cast([Number of customers who churned] as decimal(10,2)) / (select cast(sum([Number of customers who churned]) as decimal(10,2))
                                                                    from churn_by_active_member
-																   where [Active Member] = 'No') * 100 "Percentage of non-active members who churned"
+								   where [Active Member] = 'No') * 100 "Percentage of non-active members who churned"
 from churn_by_active_member
 where [Active Member] = 'No'
 and Churned = 'Yes';
@@ -735,9 +735,9 @@ The percentage of customers that are non-active members that churned is 26.85%.
 -- Churn vs Non-Churn by Salary --
 select round(max(EstimatedSalary), 2) "Max salary",
        round(min(EstimatedSalary), 2) "Min salary",
-	   round(avg(EstimatedSalary), 2) "Avg salary",
-	   Exited,
-	   count(Exited) "Number of customers who churned",
+       round(avg(EstimatedSalary), 2) "Avg salary",
+       Exited,
+       count(Exited) "Number of customers who churned",
 	   case
 		when Exited = 0 then 'No'
 		when Exited = 1 then 'Yes'
@@ -766,7 +766,7 @@ for customers to handle. Lastly, 26% of customers who are not active members chu
 -- Max/Min/Avg Credit Scores of customers --
 select max(CreditScore) "Max Credit Score",
        min(CreditScore) "Min Credit Score",
-	   avg(CreditScore) "Avg Credit Score"
+       avg(CreditScore) "Avg Credit Score"
 from Bank_Churn;
 /*
 Max Credit Score Min Credit Score Avg Credit Score
@@ -777,7 +777,7 @@ Max Credit Score Min Credit Score Avg Credit Score
 select Gender,
        max(CreditScore) "Max Credit Score",
        min(CreditScore) "Min Credit Score",
-	   avg(CreditScore) "Avg Credit Score"
+       avg(CreditScore) "Avg Credit Score"
 from Bank_Churn
 group by Gender;
 /*
@@ -891,8 +891,8 @@ Male                                               4             22
 -- Number of Customers who have Credit Card --
 select HasCrCard, count(CustomerId) "Num of customers",
 		case
-			when HasCrCard = 0 then 'No'
-			when HasCrCard = 1 then 'Yes'
+		   when HasCrCard = 0 then 'No'
+		   when HasCrCard = 1 then 'Yes'
 		end as "Credit Card"
 from Bank_Churn
 group by HasCrCard;
@@ -905,8 +905,8 @@ HasCrCard Num of customers Credit Card
 -- Number of Customers who have Credit Card by Gender --
 select Gender, HasCrCard, count(CustomerId) "Num of customers",
 		case 
-			when HasCrCard = 0 then 'No'
-			when HasCrCard = 1 then 'Yes'
+		   when HasCrCard = 0 then 'No'
+		   when HasCrCard = 1 then 'Yes'
 		end as "Credit Card"
 from Bank_Churn
 group by Gender, HasCrCard;
@@ -921,8 +921,8 @@ Female                                             0         1351             No
 --Number of Customers who are Active --
 select IsActiveMember, count(CustomerId) "Num of customers",
 		case 
-			when IsActiveMember = 0 then 'No'
-			when IsActiveMember = 1 then 'Yes'
+		   when IsActiveMember = 0 then 'No'
+		   when IsActiveMember = 1 then 'Yes'
 		end as "Active"
 from Bank_Churn
 group by IsActiveMember;
@@ -935,8 +935,8 @@ IsActiveMember Num of customers Active
 -- Number of Customers who are Active by Gender --
 select Gender, IsActiveMember, count(CustomerId) "Num of customers",
 		case 
-			when IsActiveMember = 0 then 'No'
-			when IsActiveMember = 1 then 'Yes'
+		   when IsActiveMember = 0 then 'No'
+		   when IsActiveMember = 1 then 'Yes'
 		end as "Active"
 from Bank_Churn
 group by Gender, IsActiveMember;
@@ -1048,8 +1048,8 @@ Spain                                              4             7
 -- Number of Customers who have a Credit Card by Geography --
 select Geography, HasCrCard, count(CustomerId) "Number of customers",
 		case
-			when HasCrCard = 0 then 'No'
-			when HasCrCard = 1 then 'Yes'
+		   when HasCrCard = 0 then 'No'
+		   when HasCrCard = 1 then 'Yes'
 		end as "Credit Card"
 from Bank_Churn
 group by Geography, HasCrCard
@@ -1067,8 +1067,8 @@ Spain                                              1         1721               
 -- Number of Customers who are Active Members by Geography --
 select Geography, IsActiveMember, count(CustomerId) "Num of customers",
 		case 
-			when IsActiveMember = 0 then 'Yes'
-			when IsActiveMember = 1 then 'No'
+		   when IsActiveMember = 0 then 'Yes'
+		   when IsActiveMember = 1 then 'No'
 		end as "Active"
 from Bank_Churn
 group by Geography, IsActiveMember
